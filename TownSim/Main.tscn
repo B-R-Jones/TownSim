@@ -1,0 +1,153 @@
+[gd_scene load_steps=17 format=3 uid="uid://csqb58n2xxpvj"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_gthex"]
+[ext_resource type="PackedScene" uid="uid://desu0w8t7re2i" path="res://MapScene.tscn" id="2_47lcy"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="5_rdbew"]
+[ext_resource type="PackedScene" uid="uid://c8trhqe1dw1qn" path="res://spawn_npc.tscn" id="6_d6x0i"]
+[ext_resource type="Shader" path="res://scan_line3.gdshader" id="6_enti0"]
+[ext_resource type="Shader" path="res://scan_line1.gdshader" id="6_vlgui"]
+[ext_resource type="PackedScene" uid="uid://dmrxbxg3faj7o" path="res://ThoughtFormUI.tscn" id="7_qkvdi"]
+[ext_resource type="Shader" path="res://scan_line2.gdshader" id="7_rnbmy"]
+[ext_resource type="Shader" path="res://crt_warp.gdshader" id="8_2i0qf"]
+[ext_resource type="Script" path="res://ThoughtFormUI.gd" id="8_7hpkc"]
+[ext_resource type="Shader" path="res://wide_scan.gdshader" id="9_aqrhq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdodg"]
+shader = ExtResource("6_vlgui")
+shader_parameter/line_thickness = 1.0
+shader_parameter/line_gap = 2.0
+shader_parameter/line_color = Vector4(1, 0, 0, 0.08)
+shader_parameter/scroll_speed = 30.0
+shader_parameter/warp_strength = 0.0
+shader_parameter/warp_frequency = 0.0
+shader_parameter/warp_speed = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_78572"]
+shader = ExtResource("7_rnbmy")
+shader_parameter/line_thickness = 1.0
+shader_parameter/line_gap = 2.0
+shader_parameter/line_color = Vector4(0, 1, 0, 0.08)
+shader_parameter/scroll_speed = 30.0
+shader_parameter/warp_strength = 0.0
+shader_parameter/warp_frequency = 0.0
+shader_parameter/warp_speed = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e5x5"]
+shader = ExtResource("6_enti0")
+shader_parameter/line_thickness = 1.0
+shader_parameter/line_gap = 2.0
+shader_parameter/line_color = Vector4(0, 0, 1, 0.08)
+shader_parameter/scroll_speed = 30.0
+shader_parameter/warp_strength = 0.0
+shader_parameter/warp_frequency = 0.0
+shader_parameter/warp_speed = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2gkhd"]
+shader = ExtResource("9_aqrhq")
+shader_parameter/base_y = 0.0
+shader_parameter/line_thickness = 0.1
+shader_parameter/line_color = Vector4(0.25, 0.25, 0.25, 0.05)
+shader_parameter/scroll_speed = 0.1
+shader_parameter/bump_amplitude = 0.01
+shader_parameter/bump_width = 100000.0
+shader_parameter/bump_speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rcm8x"]
+shader = ExtResource("8_2i0qf")
+shader_parameter/curvature = 0.014
+shader_parameter/vignette = 0.725
+shader_parameter/tint_color = Color(1, 0.984314, 1, 0.878431)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_gthex")
+
+[node name="MapScene" parent="." instance=ExtResource("2_47lcy")]
+map_height = 50
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 400.0
+offset_top = 224.0
+offset_right = 1552.0
+offset_bottom = 872.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(784, 512)
+script = ExtResource("5_rdbew")
+
+[node name="CanvasLayerShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayerShader"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScanLineRed" type="ColorRect" parent="CanvasLayerShader"]
+material = SubResource("ShaderMaterial_rdodg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScanLineGreen" type="ColorRect" parent="CanvasLayerShader"]
+material = SubResource("ShaderMaterial_78572")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScanLineBlue" type="ColorRect" parent="CanvasLayerShader"]
+material = SubResource("ShaderMaterial_6e5x5")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FilterBigScan" type="ColorRect" parent="CanvasLayerShader"]
+material = SubResource("ShaderMaterial_2gkhd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FilterCRT" type="ColorRect" parent="CanvasLayerShader"]
+material = SubResource("ShaderMaterial_rcm8x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayerUI" type="CanvasLayer" parent="."]
+
+[node name="ThoughtFormUI" parent="CanvasLayerUI" instance=ExtResource("7_qkvdi")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+script = ExtResource("8_7hpkc")
+
+[node name="SpawnControl" parent="CanvasLayerUI" instance=ExtResource("6_d6x0i")]
+offset_left = 2272.0
+offset_top = 8.0
+offset_right = 2272.0
+offset_bottom = 8.0
+target_parent_path = NodePath("../..")
+thought_form_ui_path = NodePath("../ThoughtFormUI")

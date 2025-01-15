@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8trhqe1dw1qn"]
+
+[ext_resource type="FontFile" uid="uid://biyqgoxy6dthv" path="res://joystix monospace.otf" id="1_gm3cg"]
+[ext_resource type="Script" path="res://npc_manager.gd" id="2_uky5v"]
+
+[sub_resource type="Theme" id="Theme_alwfw"]
+default_font = ExtResource("1_gm3cg")
+
+[sub_resource type="Theme" id="Theme_4apxc"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_alwfw")
+script = ExtResource("2_uky5v")
+
+[node name="ButtonSpawnNPC" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme = SubResource("Theme_4apxc")
+text = "Spawn NPC"
+
+[node name="NPCListUI" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_right = 216.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="ButtonSpawnNPC" to="." method="_on_button_spawn_npc_pressed"]
