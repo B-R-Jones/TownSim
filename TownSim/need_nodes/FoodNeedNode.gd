@@ -7,20 +7,22 @@ class_name FoodNeedNode
 signal res_status_updated(res_type, res_status)
 signal res_level_critical(res_type, priority, res_node)
 signal res_level_full(res_type)
+signal play_anim(anim_type)
 
 # RESOURCE SETTINGS
 @onready var res_type = "food"
-@onready var res_status = 1.0
+@onready var res_status = 0.5
 @onready var res_max = 1.0
 @onready var res_min = 0.0
-@onready var res_loss_rate = 0.00675
-@onready var res_gain_rate = 0.07
-@onready var res_signal = 0.25
+@onready var res_loss_rate = 0.0025
+@onready var res_gain_rate = 0.05
+@onready var res_signal = 0.15
 
 # HANDLER HELPERS
 @onready var priority = 1
 @onready var thought_node
 @onready var satisfy = false
+@onready var anim_type = "eating"
 
 func _ready():
 	set_connects()
@@ -53,6 +55,7 @@ func drain(delta):
 	if res_status < res_min: res_status = res_min
 
 func fill(delta):
+	emit_signal("play_anim", anim_type)
 	res_status += res_gain_rate * delta
 	if res_status >= res_max:
 		res_status = res_max

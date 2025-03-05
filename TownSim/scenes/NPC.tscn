@@ -1,0 +1,174 @@
+[gd_scene load_steps=19 format=3 uid="uid://c1trnb6awyr2q"]
+
+[ext_resource type="Shader" uid="uid://cfvjbow1qbvvx" path="res://shaders/outline_shader.gdshader" id="1_q8nuv"]
+[ext_resource type="Script" uid="uid://dcpo0f4xe7miq" path="res://scripts/NPC.gd" id="1_siltq"]
+[ext_resource type="Texture2D" uid="uid://bwgah1oao7w3u" path="res://Cow.png" id="2_ou15q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e07k"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ln1yc"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it8a2"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhohs"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgpfh"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glpy4"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag3c1"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srh73"]
+atlas = ExtResource("2_ou15q")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vde54"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e07k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ln1yc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it8a2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhohs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgpfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glpy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag3c1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srh73")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5kbyx"]
+shader = ExtResource("1_q8nuv")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.165
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m28tx"]
+size = Vector2(14, 15)
+
+[sub_resource type="Animation" id="Animation_1tj38"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dg6wr"]
+resource_name = "drinking"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.366667, 0.733333, 1.1, 1.46667, 1.83333, 2.2, 4.56667, 4.93333, 5.3, 5.66667, 6.03333, 6.4, 6.76667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 6, 5, 4, 3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_d85e8"]
+resource_name = "eating"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.533333, 0.9, 1.36667, 1.86667, 2.3, 2.73333, 3.1, 3.63333, 4.2, 4.73333, 5.13333, 5.6, 6.36667, 6.83333, 7.43333, 7.8, 8.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 4, 5, 6, 5, 6, 4, 6, 6, 3, 4, 6, 4, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gojex"]
+_data = {
+&"RESET": SubResource("Animation_1tj38"),
+&"drinking": SubResource("Animation_dg6wr"),
+&"eating": SubResource("Animation_d85e8")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.125, 0.125)
+collision_layer = 2
+script = ExtResource("1_siltq")
+
+[node name="HighlightRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(1, 0.858824, 0.447059, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(5.68434e-14, 0)
+sprite_frames = SubResource("SpriteFrames_vde54")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5kbyx")
+position = Vector2(-4.76837e-07, 0.5)
+scale = Vector2(14, 15)
+texture = ExtResource("2_ou15q")
+hframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_m28tx")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gojex")
+}

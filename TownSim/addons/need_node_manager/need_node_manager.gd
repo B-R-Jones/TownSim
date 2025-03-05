@@ -4,7 +4,7 @@ extends EditorPlugin
 #
 # Configuration: Adjust as needed
 #
-var TEMPLATE_SCRIPT_PATH := "res://addons/need_node_manager/DefaultNeedNode.gd"
+var TEMPLATE_SCRIPT_PATH := "res://addons/need_node_manager/scripts/DefaultNeedNode.gd"
 var OUTPUT_FOLDER_PATH   := "res://addons/need_node_manager/generated"
 
 #
@@ -20,6 +20,7 @@ var loss_rate_edit: LineEdit
 var gain_rate_edit: LineEdit
 var res_signal_edit: LineEdit
 var priority_edit: LineEdit
+var anim_type_edit: LineEdit
 
 func _enter_tree():
 	main_vbox = VBoxContainer.new()
@@ -69,6 +70,11 @@ func _enter_tree():
 	main_vbox.add_child(_create_label("priority (int, e.g. 1)"))
 	priority_edit = _create_line_edit("1")
 	main_vbox.add_child(priority_edit)
+
+	# -- ANIMATION TYPE --
+	main_vbox.add_child(_create_label("Animation type (e.g. drinking)"))
+	anim_type_edit = _create_line_edit("drinking")
+	main_vbox.add_child(anim_type_edit)
 
 	# -- BUTTON --
 	var create_button = Button.new()
@@ -155,6 +161,11 @@ func _on_create_button_pressed():
 	script_text = script_text.replace(
 		"@onready var priority = 1",
 		"@onready var priority = " + priority_edit.text.strip_edges()
+	)
+
+	script_text = script_text.replace(
+		'@onready var anim_type = "none"',
+		'@onready var anim_type = "' + anim_type_edit.text.strip_edges() + '"'
 	)
 
 	# Write the modified script text to a new file

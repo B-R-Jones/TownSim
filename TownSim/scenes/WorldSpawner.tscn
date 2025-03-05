@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhs4y7nbrwg4s"]
+
+[ext_resource type="Script" uid="uid://dodp8iralcblt" path="res://scripts/WorldSpawner.gd" id="1_lkrl0"]
+[ext_resource type="PackedScene" uid="uid://desu0w8t7re2i" path="res://scenes/MapScene.tscn" id="2_ql3a2"]
+
+[node name="WorldSpawner" type="Node2D"]
+script = ExtResource("1_lkrl0")
+map_width = 250
+map_height = 250
+map_scene = ExtResource("2_ql3a2")

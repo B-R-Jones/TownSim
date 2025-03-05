@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://desu0w8t7re2i"]
+
+[ext_resource type="Script" uid="uid://cjqalejygj02p" path="res://scripts/MapScene.gd" id="1_js6em"]
+[ext_resource type="Texture2D" uid="uid://0wgfky2o886r" path="res://sprites/terrain.png" id="2_3y1ni"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4318j"]
+vertices = PackedVector2Array(1150, 638.063, 2, 645.93, 2, 2, 1150, 2)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, -8, 656, 1160, 648, 1160, -8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r0b6b"]
+texture = ExtResource("2_3y1ni")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = "grass"
+0:0/0/custom_data_1 = "food"
+0:0/0/custom_data_2 = 1.0
+0:0/0/custom_data_3 = 1.0
+1:0/0 = 0
+1:0/0/custom_data_0 = "dirt"
+1:0/0/custom_data_2 = 1.2
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+2:0/0/custom_data_0 = "stone"
+3:0/0 = 0
+3:0/0/custom_data_0 = "water"
+3:0/0/custom_data_1 = "water"
+3:0/0/custom_data_2 = 0.6
+3:0/0/custom_data_3 = 1.0
+4:0/0 = 0
+4:0/0/custom_data_0 = "sand"
+4:0/0/custom_data_2 = 1.0
+
+[sub_resource type="TileSet" id="TileSet_fistg"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+custom_data_layer_0/name = "Type"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "Resource"
+custom_data_layer_1/type = 4
+custom_data_layer_2/name = "Speed"
+custom_data_layer_2/type = 3
+custom_data_layer_3/name = "ResAmount"
+custom_data_layer_3/type = 3
+sources/0 = SubResource("TileSetAtlasSource_r0b6b")
+tile_proxies/coords_level = [[5, Vector2i(0, 0)], [10, Vector2i(0, 0)], [6, Vector2i(0, 0)], [10, Vector2i(1, 0)], [7, Vector2i(0, 0)], [10, Vector2i(2, 0)], [8, Vector2i(0, 0)], [10, Vector2i(3, 0)], [9, Vector2i(0, 0)], [10, Vector2i(4, 0)]]
+
+[node name="MapScene" type="Node2D"]
+script = ExtResource("1_js6em")
+map_width = 2500
+map_height = 2500
+
+[node name="MapContainer" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="MapContainer"]
+navigation_polygon = SubResource("NavigationPolygon_4318j")
+
+[node name="MapLayers" type="Node2D" parent="MapContainer"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="MapContainer/MapLayers"]
+tile_set = SubResource("TileSet_fistg")

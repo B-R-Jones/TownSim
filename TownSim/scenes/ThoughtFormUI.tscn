@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmrxbxg3faj7o"]
+
+[ext_resource type="Script" uid="uid://bqhyn1kbxw6ef" path="res://scripts/NeedUI.gd" id="1_f530v"]
+[ext_resource type="FontFile" uid="uid://biyqgoxy6dthv" path="res://fonts/joystix monospace.otf" id="2_00tx8"]
+[ext_resource type="PackedScene" uid="uid://c1xrsmxdk1bpe" path="res://scenes/NeedUI.tscn" id="2_u1hfu"]
+
+[sub_resource type="Theme" id="Theme_3deww"]
+default_font = ExtResource("2_00tx8")
+
+[node name="ThoughtFormUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3deww")
+script = ExtResource("1_f530v")
+
+[node name="MovementStatus" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DestinationLabel" type="Label" parent="MovementStatus"]
+layout_mode = 2
+text = "Nowhere"
+
+[node name="AtDestinationLabel" type="Label" parent="MovementStatus"]
+layout_mode = 2
+text = "Not even"
+
+[node name="IsStuckLabel" type="Label" parent="MovementStatus"]
+layout_mode = 2
+text = "Totes Stuck"
+
+[node name="IsMovingLabel" type="Label" parent="MovementStatus"]
+layout_mode = 2
+text = "No moving"
+
+[node name="DetectionStatus" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 120.0
+offset_right = 155.0
+offset_bottom = 170.0
+
+[node name="TileBeneathLabel" type="Label" parent="DetectionStatus"]
+layout_mode = 2
+text = "Naught beneath me"
+
+[node name="TileCollisionLabel" type="Label" parent="DetectionStatus"]
+layout_mode = 2
+text = "I hit something"
+
+[node name="NeedUI" parent="." instance=ExtResource("2_u1hfu")]
+layout_mode = 1
+offset_top = 176.0
+offset_bottom = 176.0

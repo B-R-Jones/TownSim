@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyebgo84l6k0h"]
+
+[ext_resource type="Shader" uid="uid://dq81j1huq62gu" path="res://shaders/wide_scan.gdshader" id="1_1oqm8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdpo7"]
+shader = ExtResource("1_1oqm8")
+shader_parameter/base_y = 0.5
+shader_parameter/line_thickness = 0.1
+shader_parameter/line_color = Vector4(1, 0, 0, 1)
+shader_parameter/scroll_speed = 0.1
+shader_parameter/bump_amplitude = 0.02
+shader_parameter/bump_width = 10000.0
+shader_parameter/bump_speed = 0.25
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_xdpo7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
